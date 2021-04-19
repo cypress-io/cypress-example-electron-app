@@ -5,6 +5,8 @@
   "description": "An example of testing a packaged Electron app using Cypress.",
   "main": "src/index.js",
   "scripts": {
+    "cypress:open": "cypress open -P .",
+    "cypress:run": "cypress run -P . --browser=chromium",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -53,6 +55,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "cypress": "^7.1.0",
     "electron": "12.0.4"
   }
 }
