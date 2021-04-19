@@ -1284,6 +1284,11 @@ electron-squirrel-startup@^1.0.0:
   dependencies:
     debug "^2.2.0"
 
+electron-to-chromium@^1.3.717:
+  version "1.3.717"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.717.tgz#78d4c857070755fb58ab64bcc173db1d51cbc25f"
+  integrity sha512-OfzVPIqD1MkJ7fX+yTl2nKyOE4FReeVfMCzzxQS+Kp43hZYwHwThlGP+EGIZRXJsxCM7dqo8Y65NOX/HP12iXQ==
+
 electron-winstaller@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/electron-winstaller/-/electron-winstaller-4.0.2.tgz#e3aa7e95db8232eeb337b28c11ad80b93dcafe6d"

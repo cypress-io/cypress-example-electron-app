@@ -3,7 +3,10 @@
 const fs = require('fs').promises
 const assert = require('assert')
 const path = require('path')
-const { version, productName } = require('../../package.json')
+const { electronToChromium } = require('electron-to-chromium')
+const { devDependencies, productName } = require('../../package.json')
+
+const electronVersion = devDependencies.electron.replace(/\^~/g, '')
 
 const debug = (...args) => console.log('Cypress pluginsfile:', ...args)
 
@@ -30,15 +33,23 @@ const getElectronBrowser = async () => {
     throw err
   }
 
+  const chromiumVersion = electronToChromium(electronVersion)
+
+  assert.ok(
+    chromiumVersion,
+    `Electron version ${electronVersion} does not map to a known Chromium version. Try upgrading \`electron-to-chromium\`.`
+  )
+
   return {
     // With name and family === 'chromium', Cypress will treat this custom browser like any other CDP browser
     name: 'chromium',
     family: 'chromium',
     channel: 'dev',
     displayName: `${productName} (Electron)`,
-    version,
+    version: chromiumVersion,
     path: browserPath,
-    majorVersion: version.split('.')[0],
+    info: `Packaged Electron app from \`${browserPath}\`.`,
+    majorVersion: chromiumVersion.split('.')[0],
   }
 }
 
@@ -59,16 +70,7 @@ module.exports = async (on, config) => {
       'Only the Electron app should be launched.'
     )
 
-    const { args } = launchOptions
-
-    if (!args.find((arg) => arg.startsWith('--proxy-bypass-list'))) {
-      // Cypress automatically adds this argument when launching Chrome version 72+.
-      // Since we're passing our package version to Cypress, not the actual Chromium version, we need to add this ourselves.
-      args.push('--proxy-bypass-list=<-loopback>')
-    }
-
     debug('Launching packaged Electron app with options:', launchOptions)
-    return launchOptions
   })
 
   debug('Returning custom Electron browser to Cypress:', browser)
