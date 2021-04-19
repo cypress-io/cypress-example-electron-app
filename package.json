@@ -5,10 +5,11 @@
   "description": "An example of testing a packaged Electron app using Cypress.",
   "main": "src/index.js",
   "scripts": {
-    "cypress:open": "cypress open -P .",
-    "cypress:run": "cypress run -P . --browser=chromium",
+    "clean": "rm -rf ./out",
+    "cypress:open": "IN_CYPRESS=1 cypress open -P .",
+    "cypress:run": "IN_CYPRESS=1 cypress run -P . --browser=chromium",
     "start": "electron-forge start",
-    "package": "electron-forge package",
+    "package": "yarn clean && electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
